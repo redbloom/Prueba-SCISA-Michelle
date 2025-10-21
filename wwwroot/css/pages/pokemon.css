@@ -1,9 +1,122 @@
-body.pokemon-theme{
-  background: var(--mint-100); font-family: var(--font-main); color: var(--green-ink); min-height:100vh;
+/* ===== FONDO POKÉMON MÁS INTENSO Y MEJORADO ===== */
+body.pokemon-theme {
+    background:
+    /* Capa base con gradiente más vibrante */
+    linear-gradient(180deg, #2d5fff 0%, /* Azul eléctrico superior */
+    #1a4eff 25%, /* Azul intenso */
+    #0d3dff 50%, /* Azul medio-profundo */
+    #0026cc 75%, /* Azul oscuro saturado */
+    #001a8c 100% /* Base azul noche */
+    ),
+    /* Patrón de rayos eléctricos sutiles */
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px ),
+    /* Efecto de brillo radial central */
+    radial-gradient( circle at 50% 20%, rgba(100, 150, 255, 0.4) 0%, transparent 50% ),
+    /* Efecto de profundidad en la base */
+    radial-gradient( circle at 50% 100%, rgba(0, 30, 100, 0.6) 0%, transparent 70% );
+    /* Mejora de efectos visuales */
+    background-blend-mode: overlay, soft-light, normal;
+    background-attachment: fixed;
+    font-family: var(--font-main);
+    color: var(--green-ink);
+    min-height: 100vh;
+    position: relative;
 }
-.pokemon-heading{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
-.accent-red{color:var(--poke-red)}
-.accent-blue{color:var(--poke-blue)}
-.accent-yellow{color:var(--poke-yellow)}
-.accent-gold{color:var(--poke-gold)}
-.border-gold{border-color:var(--poke-gold)!important}
+
+    /* Efecto de partículas eléctricas animadas */
+    body.pokemon-theme::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 2%, transparent 4%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 1%, transparent 3%), radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.12) 3%, transparent 5%), radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.15) 2%, transparent 4%);
+        background-size: 400px 400px, 300px 300px, 500px 500px, 450px 450px;
+        background-position: 0% 0%, 100% 50%, 30% 80%, 70% 20%;
+        animation: electricPulse 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+/* Animación sutil de pulsación eléctrica */
+@keyframes electricPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+}
+
+/* Efecto de destellos aleatorios */
+body.pokemon-theme::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 10%), radial-gradient(circle at 90% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 8%), radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.25) 0%, transparent 6%);
+    opacity: 0;
+    animation: electricFlashes 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes electricFlashes {
+    0%, 100% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.3;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    65% {
+        opacity: 0.2;
+    }
+
+    80% {
+        opacity: 0;
+    }
+}
+
+/* Asegurar que el contenido esté por encima de los efectos */
+body.pokemon-theme > *:not(::before, ::after) {
+    position: relative;
+    z-index: 2;
+}
+
+/* Fondo general del main transparente */
+main {
+    background: transparent !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* Mejora de contraste para mejor legibilidad */
+.pokemon-theme .start-card {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+    /* Efecto de brillo en elementos interactivos */
+    .pokemon-theme .start-card:hover {
+        box-shadow: 0 35px 70px rgba(255, 193, 7, 0.4), 0 0 20px rgba(255, 235, 59, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+/* Ajuste responsive para los efectos */
+@media (max-width: 768px) {
+    body.pokemon-theme::before,
+    body.pokemon-theme::after {
+        animation-duration: 15s;
+        opacity: 0.5;
+    }
+}

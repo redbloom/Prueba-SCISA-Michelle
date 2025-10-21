@@ -1,11 +1,87 @@
-.btn{
-  border-radius:999px; font-weight:700; padding:.55rem 1.1rem; border:2px solid #111;
+/* === BOTONES 3D GLOSSY (arreglo de transparencia + !important colores) === */
+:root {
+    --shine-light: rgba(255, 255, 255, 0.88);
+    --shine-mid: rgba(255, 255, 255, 0.45);
+    --shine-dark: rgba(255, 255, 255, 0.08);
+    --glow-alpha: rgba(0, 0, 0, 0.22);
 }
-.btn-primary{background:#2a75bb;color:#fff}
-.btn-success{background:#1b9e3e;color:#fff}
-.btn-warning{background:#ffcb05;color:#111}
-/* Variantes Pok‚mon extra */
-.btn-poke-red{background:var(--poke-red);color:#fff}
-.btn-poke-blue{background:var(--poke-blue);color:#fff}
-.btn-poke-yellow{background:var(--poke-yellow);color:#111}
-.btn-poke-gold{background:var(--poke-gold);color:#fff}
+
+.btn-neo {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    isolation: isolate; /* evita mezclar con fondo */
+    border: 0;
+    border-radius: 24px;
+    padding: 0.9rem 2.4rem;
+    font-weight: 800;
+    letter-spacing: 0.25px;
+    font-size: 1.1rem;
+    color: #fff;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+    background-clip: padding-box;
+    box-shadow: inset 0 3px 3px rgba(255, 255, 255, 0.45), inset 0 -4px 8px rgba(0, 0, 0, 0.25), 0 12px 20px rgba(0, 0, 0, 0.25), 0 4px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+    opacity: 1 !important;
+}
+
+    /* Reflejo superior sin blend-mode (no lava el color) */
+    .btn-neo::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 55% 0; /* brillo arriba */
+        border-radius: inherit;
+        background: linear-gradient( 180deg, var(--shine-light) 0%, var(--shine-mid) 55%, var(--shine-dark) 100% );
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Glow bajo el botón (sombra suave) */
+    .btn-neo::after {
+        content: "";
+        position: absolute;
+        left: 12%;
+        right: 12%;
+        bottom: -14px;
+        height: 18px;
+        border-radius: 50% / 60%;
+        background: radial-gradient(closest-side, var(--glow-alpha), transparent 70%);
+        filter: blur(6px);
+        z-index: -1;
+    }
+
+    .btn-neo:hover {
+        filter: brightness(1.08);
+    }
+
+    .btn-neo:active {
+        transform: translateY(3px);
+        box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.25), 0 6px 12px rgba(0, 0, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.25);
+    }
+
+/* === VARIANTES COLOREADAS (con !important) === */
+.btn-neo-red {
+    background: linear-gradient( 180deg, var(--poke-red) 0%, #d11616 45%, var(--poke-darkred) 100% ) !important;
+}
+
+.btn-neo-blue {
+    background: linear-gradient( 180deg, var(--poke-blue) 0%, #3342b8 45%, #232e91 100% ) !important;
+}
+
+.btn-neo-yellow {
+    color: #212529 !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45) !important;
+    background: linear-gradient( 180deg, var(--poke-yellow) 0%, #f5c700 45%, var(--poke-gold) 100% ) !important;
+}
+
+.btn-neo-green {
+    background: linear-gradient( 180deg, var(--green-cta) 0%, #299d63 45%, #1a6542 100% ) !important;
+}
+
+/* Tamaño grande */
+.btn-lg.btn-neo {
+    padding: 1rem 2.6rem;
+    border-radius: 26px;
+    font-size: 1.15rem;
+}
