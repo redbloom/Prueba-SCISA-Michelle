@@ -81,14 +81,11 @@ namespace Prueba_SCISA_Michelle.Controllers
         {
             var page = await _pokemon.SearchAsync(filter, ct);
             var bytes = await _excel.GenerateAsync(page.Items, ct);
-
-            // ⬇️ Si generas XLSX (recomendado con IExcelExportService):
             const string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             return File(bytes, contentType, "pokemon.xlsx");
-
-            // ⬇️ Si en realidad generas CSV, usa esto en su lugar:
-            // return File(bytes, "text/csv", "pokemon.csv");
         }
+
+
 
         // Enviar correo a un Pokémon
         [HttpPost]

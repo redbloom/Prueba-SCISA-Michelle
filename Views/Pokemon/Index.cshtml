@@ -1,6 +1,6 @@
 @model Prueba_SCISA_Michelle.Models.Dtos.PokemonFilterDto
 @{
-    ViewData["Title"] = "Pokémon";
+    ViewData["Title"] = "Pokemon";
     Layout = "_Layout";
 }
 
@@ -12,7 +12,8 @@
             <form id="filtersForm" method="post" class="row g-3 align-items-end"
                   data-list-url="@Url.Action("List","Pokemon")"
                   data-export-url="@Url.Action("Export","Pokemon")"
-                  data-email-all-url="@Url.Action("SendAll","Pokemon")">
+                  data-email-all-url="@Url.Action("SendAll","Pokemon")"
+                  data-species-url="@Url.Action("Species","Pokemon")">
                 @Html.AntiForgeryToken()
 
                 <div class="col-md-4">
@@ -64,10 +65,11 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/views/pokemon.index.js" asp-append-version="true"></script>
+    <script src="~/js/pokemon.js" asp-append-version="true"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             PokemonIndex.init();
         });
     </script>
 }
+

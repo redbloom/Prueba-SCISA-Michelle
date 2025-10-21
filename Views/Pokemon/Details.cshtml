@@ -1,0 +1,126 @@
+@model Prueba_SCISA_Michelle.Models.Dtos.PokemonDetailDto
+@{
+    ViewData["Title"] = $"Pokemon #{Model.Id}";
+    Layout = "_Layout";
+}
+
+<div class="container">
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body d-flex flex-column flex-md-row align-items-center gap-4">
+
+            <img src="@Model.ImageUrl"
+                 alt="@Model.Name"
+                 class="rounded"
+                 style="width:160px;height:160px;image-rendering:auto;">
+
+            <div class="flex-grow-1">
+                <h2 class="h3 mb-1 text-capitalize">@Model.Name</h2>
+
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge text-bg-primary">id: @Model.Id</span>
+                    <span class="badge text-bg-success text-capitalize">especie: @Model.SpeciesName</span>
+                    <span class="badge text-bg-secondary">exp base: @Model.BaseExperience</span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-6 col-md-4">
+                        <div class="small text-muted">altura</div>
+                        <div class="fs-5">@Model.Height</div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="small text-muted">peso</div>
+                        <div class="fs-5">@Model.Weight</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column gap-2 ms-md-3">
+                <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Pokemon")">Volver</a>
+
+                <form id="emailForm" method="post" action="@Url.Action("SendOne", "Pokemon", new { id = Model.Id })" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="button" id="btnEmailOne" class="btn btn-warning">
+                        Enviar correo
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header fw-semibold">Datos tecnicos</div>
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <tbody>
+                    <tr>
+                        <th style="width:220px">id</th>
+                        <td>@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <th>nombre</th>
+                        <td class="text-capitalize">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>especie</th>
+                        <td class="text-capitalize">@Model.SpeciesName</td>
+                    </tr>
+                    <tr>
+                        <th>exp base</th>
+                        <td>@Model.BaseExperience</td>
+                    </tr>
+                    <tr>
+                        <th>altura</th>
+                        <td>@Model.Height</td>
+                    </tr>
+                    <tr>
+                        <th>peso</th>
+                        <td>@Model.Weight</td>
+                    </tr>
+                    <tr>
+                        <th>sprite url</th>
+                        <td><a href="@Model.ImageUrl" target="_blank">@Model.ImageUrl</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="alerts" class="mt-3"></div>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+          const btn = document.getElementById('btnEmailOne');
+          const form = document.getElementById('emailForm');
+          const alerts = document.getElementById('alerts');
+
+          function showAlert(type, message){
+            alerts.innerHTML = `
+              <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+              </div>`;
+          }
+
+          btn?.addEventListener('click', async () => {
+            btn.disabled = true;
+            try {
+              const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
+              const res = await fetch(form.action, {
+                method: 'POST',
+                headers: { 'RequestVerificationToken': token }
+              });
+              if(!res.ok) throw new Error();
+              const text = await res.text();
+              showAlert('success', text || 'correo enviado');
+            } catch {
+              showAlert('danger', 'no se pudo enviar el correo');
+            } finally {
+              btn.disabled = false;
+            }
+          });
+        })();
+    </script>
+}

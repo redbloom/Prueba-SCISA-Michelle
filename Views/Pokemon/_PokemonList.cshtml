@@ -1,5 +1,27 @@
 @model Prueba_SCISA_Michelle.Models.Dtos.PagedResult<Prueba_SCISA_Michelle.Models.Dtos.PokemonListItemDto>
 
+@{
+    var page = Model.Page;
+    var totalPages = Model.TotalPages;
+    var total = Model.TotalCount;
+    var size = Model.PageSize;
+
+    int window = 2;
+    int start = Math.Max(1, page - window);
+    int end = Math.Min(totalPages, page + window);
+
+    if (end - start < window * 2)
+    {
+        if (start == 1)
+            end = Math.Min(totalPages, start + window * 2);
+        else if (end == totalPages)
+            start = Math.Max(1, end - window * 2);
+    }
+
+    var first = (total == 0) ? 0 : ((page - 1) * size) + 1;
+    var last = Math.Min(page * size, total);
+}
+
 @if (!Model.Items.Any())
 {
     <div class="text-center py-5 text-muted">No se encontraron resultados.</div>
@@ -28,11 +50,11 @@ else
                         <td class="text-end">
                             <div class="btn-group">
                                 <a class="btn btn-outline-primary btn-sm"
-                                   href="@Url.Action("Details","Pokemon", new { id = p.Id })">
+                                   href="@Url.Action("Details", "Pokemon", new { id = p.Id })">
                                     Detalles
                                 </a>
                                 <button class="btn btn-outline-warning btn-sm js-email-one"
-                                        data-email-url="@Url.Action("SendOne","Pokemon", new { id = p.Id })">
+                                        data-email-url="@Url.Action("SendOne", "Pokemon", new { id = p.Id })">
                                     Enviar correo
                                 </button>
                             </div>
@@ -43,26 +65,43 @@ else
         </table>
     </div>
 
-    <!-- Paginación -->
-    <nav aria-label="Paginación" class="d-flex align-items-center justify-content-between">
-        <small class="text-muted">
-            Mostrando @Model.Items.Count de @Model.TotalCount
-        </small>
+    <nav class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2" aria-label="paginacion">
+        <div class="small text-muted">
+            Mostrando @first–@last de @total
+        </div>
 
         <ul class="pagination mb-0">
-            <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
-                <a class="page-link js-page" data-page="@(Model.Page - 1)">Anterior</a>
+            <li class="page-item @(page <= 1 ? "disabled" : "")">
+                <a class="page-link js-page" data-page="1">&laquo;</a>
+            </li>
+            <li class="page-item @(page <= 1 ? "disabled" : "")">
+                <a class="page-link js-page" data-page="@(page - 1)">Anterior</a>
             </li>
 
-            @for (var i = 1; i <= Model.TotalPages; i++)
+            @if (start > 1)
             {
-                <li class="page-item @(i == Model.Page ? "active" : "")">
+                <li class="page-item"><a class="page-link js-page" data-page="1">1</a></li>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            }
+
+            @for (var i = start; i <= end; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
                     <a class="page-link js-page" data-page="@i">@i</a>
                 </li>
             }
 
-            <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")">
-                <a class="page-link js-page" data-page="@(Model.Page + 1)">Siguiente</a>
+            @if (end < totalPages)
+            {
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                <li class="page-item"><a class="page-link js-page" data-page="@totalPages">@totalPages</a></li>
+            }
+
+            <li class="page-item @(page >= totalPages ? "disabled" : "")">
+                <a class="page-link js-page" data-page="@(page + 1)">Siguiente</a>
+            </li>
+            <li class="page-item @(page >= totalPages ? "disabled" : "")">
+                <a class="page-link js-page" data-page="@totalPages">&raquo;</a>
             </li>
         </ul>
     </nav>
