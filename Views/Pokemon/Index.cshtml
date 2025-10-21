@@ -1,0 +1,73 @@
+@model Prueba_SCISA_Michelle.Models.Dtos.PokemonFilterDto
+@{
+    ViewData["Title"] = "Pokémon";
+    Layout = "_Layout";
+}
+
+<div class="container">
+
+    <!-- Filtros -->
+    <div class="card filters-card mb-3">
+        <div class="card-body">
+            <form id="filtersForm" method="post" class="row g-3 align-items-end"
+                  data-list-url="@Url.Action("List","Pokemon")"
+                  data-export-url="@Url.Action("Export","Pokemon")"
+                  data-email-all-url="@Url.Action("SendAll","Pokemon")">
+                @Html.AntiForgeryToken()
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Nombre</label>
+                    <input name="Name" class="form-control" placeholder="p. ej. pikachu" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Especie</label>
+                    <select name="SpeciesId" id="speciesSelect" class="form-select">
+                        <option value="">Todas</option>
+                        <!-- Se llena por JS -->
+                    </select>
+                </div>
+
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" id="btnSearch" class="btn btn-primary">
+                        Buscar
+                    </button>
+                    <button type="button" id="btnClear" class="btn btn-outline-secondary">
+                        Limpiar
+                    </button>
+                    <button type="button" id="btnExport" class="btn btn-success ms-auto" disabled>
+                        Exportar Excel
+                    </button>
+                    <button type="button" id="btnEmailAll" class="btn btn-warning" disabled>
+                        Enviar correo (lista)
+                    </button>
+                </div>
+
+                <!-- Paginación / tamaños -->
+                <input type="hidden" name="Page" value="@Model.Page" />
+                <input type="hidden" name="PageSize" value="@Model.PageSize" />
+            </form>
+        </div>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alerts" class="mb-3"></div>
+
+    <!-- Grid (tabla) -->
+    <div class="pokemon-grid">
+        <div id="pokemonList" class="card">
+            <div class="card-body">
+                <div class="text-muted">Cargando...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/views/pokemon.index.js" asp-append-version="true"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            PokemonIndex.init();
+        });
+    </script>
+}

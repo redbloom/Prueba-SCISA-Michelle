@@ -1,0 +1,11 @@
+.btn{
+  border-radius:999px; font-weight:700; padding:.55rem 1.1rem; border:2px solid #111;
+}
+.btn-primary{background:#2a75bb;color:#fff}
+.btn-success{background:#1b9e3e;color:#fff}
+.btn-warning{background:#ffcb05;color:#111}
+/* Variantes Pok‚mon extra */
+.btn-poke-red{background:var(--poke-red);color:#fff}
+.btn-poke-blue{background:var(--poke-blue);color:#fff}
+.btn-poke-yellow{background:var(--poke-yellow);color:#111}
+.btn-poke-gold{background:var(--poke-gold);color:#fff}

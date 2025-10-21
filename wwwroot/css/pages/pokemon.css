@@ -1,0 +1,9 @@
+body.pokemon-theme{
+  background: var(--mint-100); font-family: var(--font-main); color: var(--green-ink); min-height:100vh;
+}
+.pokemon-heading{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.accent-red{color:var(--poke-red)}
+.accent-blue{color:var(--poke-blue)}
+.accent-yellow{color:var(--poke-yellow)}
+.accent-gold{color:var(--poke-gold)}
+.border-gold{border-color:var(--poke-gold)!important}

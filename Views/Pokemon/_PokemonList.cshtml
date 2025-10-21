@@ -1,0 +1,69 @@
+@model Prueba_SCISA_Michelle.Models.Dtos.PagedResult<Prueba_SCISA_Michelle.Models.Dtos.PokemonListItemDto>
+
+@if (!Model.Items.Any())
+{
+    <div class="text-center py-5 text-muted">No se encontraron resultados.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:96px">Imagen</th>
+                    <th>Nombre</th>
+                    <th>Especie</th>
+                    <th style="width:220px" class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.Items)
+                {
+                    <tr data-id="@p.Id">
+                        <td>
+                            <img src="@p.ImageUrl" class="rounded" width="72" height="72" alt="@p.Name" />
+                        </td>
+                        <td class="fw-semibold text-capitalize">@p.Name</td>
+                        <td class="text-capitalize">@p.SpeciesName</td>
+                        <td class="text-end">
+                            <div class="btn-group">
+                                <a class="btn btn-outline-primary btn-sm"
+                                   href="@Url.Action("Details","Pokemon", new { id = p.Id })">
+                                    Detalles
+                                </a>
+                                <button class="btn btn-outline-warning btn-sm js-email-one"
+                                        data-email-url="@Url.Action("SendOne","Pokemon", new { id = p.Id })">
+                                    Enviar correo
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginación -->
+    <nav aria-label="Paginación" class="d-flex align-items-center justify-content-between">
+        <small class="text-muted">
+            Mostrando @Model.Items.Count de @Model.TotalCount
+        </small>
+
+        <ul class="pagination mb-0">
+            <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+                <a class="page-link js-page" data-page="@(Model.Page - 1)">Anterior</a>
+            </li>
+
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Page ? "active" : "")">
+                    <a class="page-link js-page" data-page="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")">
+                <a class="page-link js-page" data-page="@(Model.Page + 1)">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+}

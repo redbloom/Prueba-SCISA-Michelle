@@ -1,0 +1,13 @@
+.filters-card{
+  background:#fff; border-radius:20px; border:3px solid #bde7d6;
+  box-shadow: var(--shadow-card); padding:1.1rem 1.2rem;
+}
+.form-label{font-weight:800; letter-spacing:.2px; color:var(--green-ink);}
+.form-control,.form-select{
+  border-radius:14px; border:2px solid #bde7d6; height:44px;
+}
+.chip{display:inline-block;padding:6px 12px;border-radius:999px;font-weight:800;border:2px solid #000;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.chip-red{background:var(--poke-red);color:#fff}
+.chip-blue{background:var(--poke-blue);color:#fff}
+.chip-yellow{background:var(--poke-yellow);color:#111}
+.chip-gold{background:var(--poke-gold);color:#fff}

@@ -1,0 +1,28 @@
+:root {
+  /* Fuente */
+  --font-main: 'Poppins', system-ui, sans-serif;
+
+  /* Mint */
+  --mint-100: #cfeee0;
+  --mint-200: #dff6ea;
+  --mint-300: #eafaf1;
+  --green-ink: #2e7d6b;
+  --green-cta: #3bbf7a;
+
+  /* Paleta Pok‚mon extra (no reemplaza mint) */
+  --poke-red:   #ef1c1c;
+  --poke-darkred:#af0f0f;
+  --poke-blue:  #424ccf;
+  --poke-yellow:#f4d215;
+  --poke-gold:  #b3a331;
+
+  /* Neutros / radios / sombras */
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-700: #495057;
+  --gray-900: #212529;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-card: 0 10px 24px rgba(0,0,0,.08);
+}
