@@ -1,0 +1,25 @@
+@import "../_variables.less";
+@import "../_mixins.less";
+
+.navbar {
+    background-color: @poke-red;
+    .shadow-sm();
+}
+
+.navbar-brand {
+    color: #fff !important;
+    font-weight: 700;
+    letter-spacing: .5px;
+
+    &:hover {
+        color: @poke-yellow !important;
+    }
+}
+
+.nav-link {
+    color: #fff !important;
+
+    &:hover {
+        color: fade(#fff, 85%) !important;
+    }
+}

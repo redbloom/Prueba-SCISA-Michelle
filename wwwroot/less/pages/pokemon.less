@@ -1,0 +1,57 @@
+@import "../_variables.less";
+
+.pokemon-index {
+    .header {
+        display: flex;
+        align-items: center;
+        gap: @space-4;
+        margin-bottom: @space-4;
+
+        .title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: @poke-blue;
+        }
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: @space-4;
+    }
+
+    .pagination {
+        margin-top: @space-5;
+
+        .page-link {
+            color: @poke-blue;
+        }
+
+        .active .page-link {
+            background: @poke-blue;
+            border-color: @poke-blue;
+        }
+    }
+}
+
+/* Vista de detalles opcional */
+.pokemon-details {
+    .hero {
+        display: flex;
+        gap: @space-5;
+        align-items: center;
+        margin-bottom: @space-5;
+
+        img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 800;
+            color: @poke-blue;
+        }
+    }
+}

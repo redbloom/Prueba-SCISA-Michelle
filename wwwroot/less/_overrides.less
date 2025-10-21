@@ -1,0 +1,24 @@
+/* === Overrides  === */
+:root {
+    --bs-primary: @poke-blue;
+    --bs-danger: @poke-red;
+    --bs-warning: @poke-yellow;
+    --bs-body-bg: @poke-light;
+    --bs-body-color: @poke-dark;
+}
+
+/* Bordes y radios */
+.btn, .form-control, .card, .dropdown-menu, .modal-content {
+    border-radius: @radius-sm;
+}
+
+/* Links */
+a {
+    color: @poke-blue;
+    text-decoration: none;
+
+    &:hover {
+        color: darken(@poke-blue, 6%);
+        text-decoration: underline;
+    }
+}
