@@ -243,6 +243,7 @@ window.PokemonIndex = (function () {
         });
         return obj;
     }
+    // #endregion
 
     function cap(s) {
         return (s || "").toString().toLowerCase().replace(/^\w/, c => c.toUpperCase());

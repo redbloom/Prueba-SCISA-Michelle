@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Prueba_SCISA_Michelle.Models.PokeApi
 {
@@ -22,6 +22,10 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
 
         [JsonPropertyName("sprites")]
         public PokemonSprites? Sprites { get; set; }
+
+        // 👇 Necesario para obtener el speciesId real (url con /pokemon-species/{id}/)
+        [JsonPropertyName("species")]
+        public NamedApiResource? Species { get; set; }
     }
 
     public sealed class PokemonSprites
@@ -44,4 +48,5 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
         [JsonPropertyName("front_default")]
         public string? FrontDefault { get; set; }
     }
+
 }
