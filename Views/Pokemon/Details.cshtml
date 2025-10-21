@@ -26,11 +26,11 @@
                 <div class="row g-3">
                     <div class="col-6 col-md-4">
                         <div class="small text-muted">altura</div>
-                        <div class="fs-5">@Model.Height</div>
+                        <div class="fs-5">@Model.HeightMeters m</div>
                     </div>
                     <div class="col-6 col-md-4">
                         <div class="small text-muted">peso</div>
-                        <div class="fs-5">@Model.Weight</div>
+                        <div class="fs-5">@Model.WeightKg kg</div>
                     </div>
                 </div>
             </div>
@@ -71,11 +71,11 @@
                     </tr>
                     <tr>
                         <th>altura</th>
-                        <td>@Model.Height</td>
+                        <td>@Model.HeightMeters m (@Model.Height dm)</td>
                     </tr>
                     <tr>
                         <th>peso</th>
-                        <td>@Model.Weight</td>
+                        <td>@Model.WeightKg kg (@Model.Weight hg)</td>
                     </tr>
                     <tr>
                         <th>sprite url</th>
