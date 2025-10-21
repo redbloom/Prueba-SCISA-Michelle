@@ -14,6 +14,7 @@ builder.Services.AddMemoryCache();
 
 // MVC + API
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddControllers(); // <- para rutas por atributos (ApiController)
 
 // Servicios
