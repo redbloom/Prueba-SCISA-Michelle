@@ -72,7 +72,8 @@ window.PokemonIndex = (function () {
     // #region === CARGA DE CATÁLOGO (ESPECIES) ===
     async function loadSpecies() {
         try {
-            const url = urls.species; // MVC: /Pokemon/Species => [{id,name}]
+            setLoading(true);
+            const url = urls.species; 
             const res = await fetch(url, { method: "GET" });
             if (!res.ok) throw new Error("No se pudo cargar Species");
             const data = await res.json();
@@ -81,6 +82,7 @@ window.PokemonIndex = (function () {
             data.forEach(x => $sel.append(new Option(cap(x.name), x.id)));
         } catch (err) {
             showAlert("warning", "No se pudo cargar el catálogo de especies.");
+            setLoading(false)
         }
     }
     // #endregion
@@ -88,7 +90,6 @@ window.PokemonIndex = (function () {
 
     // #region === LISTA PRINCIPAL ===
     async function loadList() {
-        setLoading(true);
         disableActions(true);
 
         try {
