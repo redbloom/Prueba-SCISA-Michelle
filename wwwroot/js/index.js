@@ -1,9 +1,19 @@
 // wwwroot/js/views/pokemon.index.js
+// =============================================================================
+//  Módulo principal: PokemonIndex
+//  Controla filtros, lista, exportación y envío de correos
+// =============================================================================
+
 window.PokemonIndex = (function () {
+
+    // #region === VARIABLES GLOBALES ===
     let $form, $list, $alerts;
     let urls = {};
     let token = "";
+    // #endregion
 
+
+    // #region === INICIALIZACIÓN ===
     function init() {
         $form = $("#filtersForm");
         $list = $("#pokemonList");
@@ -18,7 +28,10 @@ window.PokemonIndex = (function () {
         bindEvents();
         loadSpecies().then(loadList);
     }
+    // #endregion
 
+
+    // #region === EVENTOS PRINCIPALES ===
     function bindEvents() {
         // Buscar
         $form.on("submit", function (e) {
@@ -53,7 +66,10 @@ window.PokemonIndex = (function () {
         // Enviar correo a uno (delegado, botones que vienen en el partial)
         $list.on("click", ".js-email-one", sendOneEmail);
     }
+    // #endregion
 
+
+    // #region === CARGA DE CATÁLOGO (ESPECIES) ===
     async function loadSpecies() {
         try {
             const url = urls.species; // MVC: /Pokemon/Species => [{id,name}]
@@ -67,7 +83,10 @@ window.PokemonIndex = (function () {
             showAlert("warning", "No se pudo cargar el catálogo de especies.");
         }
     }
+    // #endregion
 
+
+    // #region === LISTA PRINCIPAL ===
     async function loadList() {
         setLoading(true);
         disableActions(true);
@@ -96,7 +115,10 @@ window.PokemonIndex = (function () {
             setLoading(false);
         }
     }
+    // #endregion
 
+
+    // #region === EXPORTACIÓN (EXCEL/CSV) ===
     async function exportExcel() {
         try {
             const formData = new FormData($form[0]);
@@ -121,7 +143,10 @@ window.PokemonIndex = (function () {
             showAlert("danger", "No se pudo exportar el Excel.");
         }
     }
+    // #endregion
 
+
+    // #region === ENVÍO DE CORREOS ===
     async function sendAllEmails() {
         try {
             const formData = objectFromForm($form[0]); // Plain object del filtro
@@ -159,16 +184,32 @@ window.PokemonIndex = (function () {
             showAlert("danger", "No se pudo enviar el correo.");
         }
     }
+    // #endregion
 
-    // Helpers
+
+    // #region === HELPERS VISUALES ===
     function setLoading(isLoading) {
         if (isLoading) {
             $list.html(`
-        <div class="card"><div class="card-body">
-          <div class="text-muted">Cargando...</div>
-        </div></div>`);
+            <div style="position:relative;min-height:150px;display:grid;place-items:center;">
+                <div style="position:absolute;inset:0;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);"></div>
+                <div style="position:relative;min-width:220px;max-width:90%;
+                            padding:16px 18px;border-radius:12px;
+                            background:rgba(20,24,35,.85);
+                            border:1px solid rgba(255,255,255,.08);
+                            box-shadow:0 8px 24px rgba(0,0,0,.35);
+                            text-align:center;">
+                    <div class="spinner-border text-light" role="status" aria-hidden="true"
+                         style="width:2.5rem;height:2.5rem;margin:2px auto 10px;display:block;"></div>
+                    <div class="fw-semibold" style="color:#b9d3ff;letter-spacing:.2px;">
+                        Cargando...
+                    </div>
+                </div>
+            </div>
+        `);
         }
     }
+
 
     function disableActions(disabled) {
         $("#btnExport").prop("disabled", disabled);
@@ -183,7 +224,10 @@ window.PokemonIndex = (function () {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`);
     }
+    // #endregion
 
+
+    // #region === UTILIDADES GENERALES ===
     function objectFromForm(form) {
         const fd = new FormData(form);
         const obj = {};
@@ -216,6 +260,11 @@ window.PokemonIndex = (function () {
         const m = /filename\*=UTF-8''([^;]+)|filename="?([^\";]+)"?/i.exec(disp);
         return decodeURIComponent(m?.[1] || m?.[2] || "");
     }
+    // #endregion
 
+
+    // #region === EXPORTAR MÓDULO ===
     return { init };
+    // #endregion
+
 })();

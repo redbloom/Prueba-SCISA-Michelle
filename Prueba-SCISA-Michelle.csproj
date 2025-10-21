@@ -8,18 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\pokemon.index.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\js\pokemon.index.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\js\pokemon.index.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

@@ -14,9 +14,12 @@
 /* Componentes reutilizables */
 @import "components/forms.css";
 @import "components/buttons.css";
+@import "components/table.css";
 
 /* Estilos específicos de página */
 @import "pages/pokemon.css";
 @import "pages/start.css"; 
+@import "pages/index.css"; 
+@import "pages/details.css"; 
 
 /* Fin del import principal */

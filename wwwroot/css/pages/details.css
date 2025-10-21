@@ -1,0 +1,280 @@
+﻿/* ===== ESTILOS PARA DETALLES POKÉMON ===== */
+
+/* Tarjeta principal */
+.card.shadow-sm {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Imagen del Pokémon */
+.card-body img.rounded {
+    border-radius: 16px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+    .card-body img.rounded:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+/* Título del Pokémon */
+.card-body h2 {
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #e0f7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Badges informativos */
+.badge.text-bg-primary {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+}
+
+.badge.text-bg-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+}
+
+.badge.text-bg-secondary {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    color: #000 !important;
+}
+
+/* Estadísticas de altura y peso */
+.small.text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.fs-5 {
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Botones de acción */
+.btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-secondary:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-color: rgba(255, 255, 255, 0.5) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+.btn-warning {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+/* Tarjeta de datos técnicos */
+.card .card-header-details {
+    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 100%) !important;
+    color: white !important;
+    font-weight: 700;
+    border: none;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.25rem 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+    .card .card-header-details::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 100%);
+        border-radius: 20px 20px 0 0;
+        pointer-events: none;
+    }
+
+    .card .card-header-details::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 10%;
+        right: 10%;
+        height: 12px;
+        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+        filter: blur(4px);
+        z-index: -1;
+    }
+/* Tabla de datos técnicos */
+.table {
+    background: transparent;
+    margin-bottom: 0;
+}
+
+    .table th {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .table td {
+        background: transparent;
+        color: white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        font-weight: 500;
+    }
+
+    .table tbody tr:last-child th,
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table tbody tr:hover th,
+    .table tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Enlace de sprite */
+    .table a {
+        color: #4facfe !important;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .table a:hover {
+            color: #00f2fe !important;
+            text-decoration: underline;
+        }
+
+/* Alertas */
+#alerts .alert {
+    border-radius: 12px;
+    border: none;
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+}
+
+.alert-success {
+    background: rgba(67, 233, 123, 0.2) !important;
+    color: #fff !important;
+    border: 1px solid rgba(67, 233, 123, 0.4) !important;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.2) !important;
+    color: #fff !important;
+    border: 1px solid rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Botón close de alertas */
+.btn-close {
+    filter: invert(1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-body.d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-body .ms-md-3 {
+        margin-left: 0 !important;
+        margin-top: 1rem;
+    }
+
+    .d-flex.flex-column.gap-2 {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 1rem !important;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body img.rounded {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .d-flex.flex-wrap.gap-2 {
+        justify-content: center;
+    }
+
+    .d-flex.flex-column.gap-2 {
+        flex-direction: column !important;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* Efectos de animación */
+.card.shadow-sm {
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de brillo en hover para cards */
+.card.shadow-sm:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}

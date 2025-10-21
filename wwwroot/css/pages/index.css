@@ -1,0 +1,306 @@
+﻿/* ===== ESTILOS ESPECÍFICOS PARA POKÉMON INDEX ===== */
+
+/* Encabezado mejorado */
+.container.py-4 .d-flex.align-items-center {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+}
+
+.pokeball-icon {
+    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 100%);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255, 26, 26, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+    .pokeball-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px 24px 0 0;
+    }
+
+    .pokeball-icon i {
+        color: white;
+        font-size: 28px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        z-index: 2;
+        position: relative;
+    }
+
+/* Títulos y texto */
+.container.py-4 h1 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #fff 0%, #e0f7ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, #ffd700 0%, #ff6b00 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(255, 107, 0, 0.4);
+}
+
+/* Tarjetas con efecto glassmorphism */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+    .glass-card .card-header {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 20px !important;
+        padding: 1.25rem 1.5rem;
+    }
+
+        .glass-card .card-header h5 {
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #a0e1ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+/* Botones glossy mejorados */
+.glossy-btn {
+    position: relative;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+
+    .glossy-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border-radius: 12px 12px 0 0;
+        pointer-events: none;
+    }
+
+    .glossy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .glossy-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+/* Botones específicos */
+.btn-primary.glossy-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.btn-success.glossy-btn {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.btn-warning.glossy-btn {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+    color: #000 !important;
+}
+
+.btn-outline-light.glossy-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Campos de formulario mejorados */
+.form-control-modern {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+    .form-control-modern:focus {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: rgba(100, 200, 255, 0.6) !important;
+        box-shadow: 0 0 0 0.2rem rgba(100, 200, 255, 0.25) !important;
+        color: #fff !important;
+    }
+
+    .form-control-modern::placeholder {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+/* Input groups con glow */
+.input-group-glow .input-group-text {
+    background: rgba(100, 200, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-right: none !important;
+    color: #fff !important;
+    border-radius: 12px 0 0 12px !important;
+}
+
+.input-group-glow .form-control-modern {
+    border-radius: 0 12px 12px 0 !important;
+    border-left: none !important;
+}
+
+.bg-light-blue {
+    background: rgba(100, 200, 255, 0.3) !important;
+}
+
+.text-light-blue {
+    color: #a0e1ff !important;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+}
+
+.spinning {
+    animation: spin 1.5s linear infinite;
+    font-size: 2rem;
+    color: #ff1a1a;
+    filter: drop-shadow(0 0 8px rgba(255, 26, 26, 0.6));
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Textos informativos */
+.form-text.text-light-blue {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+/* Footer informativo */
+.text-center small {
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Efectos de hover para cards */
+.glass-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container.py-4 .d-flex.align-items-center {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .container.py-4 .ms-auto {
+        margin-left: 0 !important;
+    }
+
+    .glass-card .card-body {
+        padding: 1rem;
+    }
+
+    .d-flex.gap-2.flex-wrap {
+        justify-content: center;
+    }
+
+    .glossy-btn {
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pokeball-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+        .pokeball-icon i {
+            font-size: 24px;
+        }
+
+    .container.py-4 h1 {
+        font-size: 1.5rem;
+    }
+
+    .glass-card .card-header h5 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Efectos de partículas sutiles */
+.container.py-4 {
+    position: relative;
+}
+
+    .container.py-4::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    }
+
+.form-select.form-control-modern {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='white' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right .9rem center !important;
+    background-size: 16px 12px !important;
+    padding-right: 2.25rem !important;
+}
+
+    .form-select.form-control-modern option {
+        background: #2a4a6b;
+        color: #fff;
+    }
