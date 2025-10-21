@@ -1,0 +1,132 @@
+/* ===== START (Hero Pokémon — Tema Amarillo Pikachu Intenso) ===== */
+.start-hero {
+    padding: 20px 0;
+    background: transparent;
+}
+
+/* Panel principal - Gradiente amarillo Pikachu */
+.start-card {
+    position: relative;
+    background: linear-gradient(180deg, #fff9c4 0%, #fff176 30%, #ffeb3b 100%);
+    border-radius: 32px;
+    box-shadow: 0 30px 60px rgba(255, 193, 7, 0.25);
+    min-height: 520px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    align-items: center;
+    padding: 56px 68px;
+    border: 3px solid #ff6f00; /* borde naranja intenso */
+}
+
+/* Bloque de texto */
+.start-copy {
+    max-width: 720px;
+    z-index: 2;
+}
+
+/* Título — naranja eléctrico con sombra */
+.start-title {
+    font-weight: 800;
+    letter-spacing: .4px;
+    line-height: 1.05;
+    margin: 0 0 16px 0;
+    font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+    color: #ff6f00;
+    text-shadow: 0 2px 4px rgba(255, 111, 0, 0.25);
+}
+
+/* Subtítulo - marrón oscuro */
+.start-sub {
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    color: #5d4037;
+    opacity: .95;
+    margin-bottom: 24px;
+}
+
+/* Botones y acciones */
+.start-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+/* Imagen Pikachu */
+.start-figure {
+    position: absolute;
+    right: -8%;
+    bottom: -100px;
+    width: min(540px, 42%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+    .start-figure img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 24px rgba(255, 111, 0, 0.3));
+    }
+
+/* Watermark gigante tipo PIKACHU en amarillo */
+.start-card::before {
+    content: "PIKACHU";
+    position: absolute;
+    right: 38%;
+    top: 8%;
+    transform: translateX(50%);
+    font-weight: 800;
+    letter-spacing: .06em;
+    font-size: min(22vw, 220px);
+    color: rgba(255, 193, 7, 0.15); /* amarillo translúcido */
+    z-index: 0;
+    user-select: none;
+}
+
+/* Efectos eléctricos decorativos */
+.start-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Adaptable (responsive) */
+@media (max-width: 992px) {
+    .start-card {
+        grid-template-columns: 1fr;
+        min-height: unset;
+        padding: 40px 28px;
+        background: linear-gradient(180deg, #fff9c4 0%, #ffeb3b 100%);
+    }
+
+    .start-figure {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: min(440px, 86vw);
+        margin: 18px auto 0 auto;
+    }
+
+    .start-card::before {
+        display: none;
+    }
+
+    .start-card::after {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    }
+}
+
+/* Efecto hover adicional para interactividad */
+@media (hover: hover) {
+    .start-card:hover {
+        box-shadow: 0 35px 70px rgba(255, 193, 7, 0.35);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+}

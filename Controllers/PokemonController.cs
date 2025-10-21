@@ -5,18 +5,23 @@ namespace Prueba_SCISA_Michelle.Controllers
 {
     public class PokemonController : Controller
     {
-        [HttpGet("/")] 
+        [HttpGet("/")]
+        public IActionResult Start()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View(new PokemonFilterDto());
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult List(PokemonFilterDto filter)
         {
-            // Datos de prueba
+            // Datos de ejemplo
             var items = new List<PokemonListItemDto>
             {
                 new() { Id = 1, Name = "bulbasaur", SpeciesName = "semilla", ImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" },

@@ -17,5 +17,6 @@
 
 /* Estilos específicos de página */
 @import "pages/pokemon.css";
+@import "pages/start.css"; 
 
 /* Fin del import principal */
