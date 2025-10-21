@@ -20,33 +20,7 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
         [JsonPropertyName("base_experience")]
         public int BaseExperience { get; set; }
 
-        [JsonPropertyName("sprites")]
-        public PokemonSprites? Sprites { get; set; }
-
-        // 👇 Necesario para obtener el speciesId real (url con /pokemon-species/{id}/)
         [JsonPropertyName("species")]
         public NamedApiResource? Species { get; set; }
     }
-
-    public sealed class PokemonSprites
-    {
-        [JsonPropertyName("front_default")]
-        public string? FrontDefault { get; set; }
-
-        [JsonPropertyName("other")]
-        public PokemonOtherSprites? Other { get; set; }
-    }
-
-    public sealed class PokemonOtherSprites
-    {
-        [JsonPropertyName("dream_world")]
-        public PokemonDreamWorld? DreamWorld { get; set; }
-    }
-
-    public sealed class PokemonDreamWorld
-    {
-        [JsonPropertyName("front_default")]
-        public string? FrontDefault { get; set; }
-    }
-
 }

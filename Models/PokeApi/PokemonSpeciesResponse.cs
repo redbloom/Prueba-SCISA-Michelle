@@ -4,9 +4,6 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
 {
     public sealed class PokemonSpeciesResponse
     {
-        [JsonPropertyName("name")]
-        public string Name { get; set; } = "";
-
         [JsonPropertyName("genera")]
         public List<PokemonGenus>? Genera { get; set; }
 
@@ -23,6 +20,15 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
         public NamedApiResource? Language { get; set; }
     }
 
+    public sealed class PokemonSpeciesVariety
+    {
+        [JsonPropertyName("is_default")]
+        public bool IsDefault { get; set; }
+
+        [JsonPropertyName("pokemon")]
+        public NamedApiResource? Pokemon { get; set; }
+    }
+
     public sealed class NamedApiResource
     {
         [JsonPropertyName("name")]
@@ -30,14 +36,5 @@ namespace Prueba_SCISA_Michelle.Models.PokeApi
 
         [JsonPropertyName("url")]
         public string Url { get; set; } = "";
-    }
-    public sealed class PokemonSpeciesVariety
-    {
-        [JsonPropertyName("is_default")]
-        public bool IsDefault { get; set; }
-
-        // Apunta al Pokémon (name/url). De aquí extraes el ID con tu ExtractId(url)
-        [JsonPropertyName("pokemon")]
-        public NamedApiResource? Pokemon { get; set; }
     }
 }
