@@ -141,7 +141,10 @@ namespace Prueba_SCISA_Michelle.Services
                         try
                         {
                             var genus = await GetGenusAsync(id, ct);
-                            lock (list) list.Add((id, genus));
+                            if (!string.IsNullOrWhiteSpace(genus))
+                            {
+                                lock (list) list.Add((id, genus));
+                            }
                         }
                         finally { sem.Release(); }
                     });
@@ -153,9 +156,15 @@ namespace Prueba_SCISA_Michelle.Services
                     : null;
             }
 
-            var ordered = list.OrderBy(x => x.name, StringComparer.OrdinalIgnoreCase).ToList();
-            _cache.Set("species_basic", ordered, TimeSpan.FromHours(3));
-            return ordered;
+            // Limpieza: dejar solo un registro por nombre (normalizado), ignorando acentos/case/espacios raros
+            var distinct = list
+                .GroupBy(x => PokeApiHelper.NormalizeName(x.name))
+                .Select(g => g.First())
+                .OrderBy(x => x.name, StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+
+            _cache.Set("species_basic", distinct, TimeSpan.FromHours(3));
+            return distinct;
         }
 
         public async Task<PokemonDetailDto?> GetDetailsAsync(int id, CancellationToken ct = default)

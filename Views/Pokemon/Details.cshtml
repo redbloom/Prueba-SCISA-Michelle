@@ -91,11 +91,9 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/views/details.js" asp-append-version="true"></script>
     <script src="~/js/email.modal.js" asp-append-version="true"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            if (window.PokemonDetails?.init) PokemonDetails.init(); 
             if (window.PokemonEmail?.init) PokemonEmail.init();  
         });
     </script>

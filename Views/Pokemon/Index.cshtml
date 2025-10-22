@@ -15,7 +15,7 @@
                 <i class="mdi mdi-filter-variant me-2"></i>Filtros de Búsqueda
             </h5>
         </div>
-        <div class="card-body pt-0 mt-4">
+        <div class="card-body pt-0 mt-5">
             <form id="filtersForm" method="post" class="row g-3 align-items-center"
                   data-list-url="@Url.Action("List", "Pokemon")"
                   data-export-url="@Url.Action("Export", "Pokemon")"
@@ -24,18 +24,18 @@
                 @Html.AntiForgeryToken()
 
                 <!-- Nombre -->
-                <div class="col-md-4">
+                <div class="col-lg-4 mt-lg-0">
                     <label class="form-label fw-bold text-white">Nombre del Pokémon</label>
                     <div class="input-group input-group-glow">
                         <span class="input-group-text bg-light-blue">
                             <i class="mdi mdi-magnify"></i>
                         </span>
-                        <input name="Name" class="form-control form-control-modern" placeholder="p. ej. pikachu, charmander..." />
+                        <input name="Name" class="form-control form-control-modern" placeholder="Ej. Sylveon, Jigglypuff..." />
                     </div>
                 </div>
 
                 <!-- Especie -->
-                <div class="col-md-4">
+                <div class="col-lg-4 mt-lg-0">
                     <label class="form-label fw-bold text-white">Especie</label>
                     <div class="input-group input-group-glow">
                         <span class="input-group-text bg-light-blue">
@@ -48,8 +48,8 @@
                 </div>
 
                 <!-- Acciones -->
-                <div class="col-md-4 d-flex justify-content-end">
-                    <div class="d-flex gap-2">
+                <div class="col-lg-4 d-flex justify-content-end mt-lg-0 mt-4">
+                    <div class="d-flex gap-2 mt-4">
                         <button type="submit" id="btnSearch" class="btn btn-primary glossy-btn">
                             <i class="mdi mdi-database-search me-1"></i> Buscar Pokémon
                         </button>
@@ -58,6 +58,7 @@
                         </button>
                     </div>
                 </div>
+
 
                 <!-- Hidden para paginación -->
                 <input type="hidden" name="Page" value="@Model.Page" />
@@ -81,8 +82,9 @@
                 </button>
 
                 <button type="button"
+                        id="btnEmailAll"
                         class="btn btn-warning glossy-btn js-email-all">
-                    <i class="mdi mdi-email-send me-1"></i> Enviar listado por correo
+                    <i class="mdi mdi-email me-1"></i> Enviar listado por correo
                 </button>
             </div>
             

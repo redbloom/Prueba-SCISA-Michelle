@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Prueba_SCISA_Michelle.Services.Helpers
 {
@@ -40,6 +41,37 @@ namespace Prueba_SCISA_Michelle.Services.Helpers
             var norm = sb.ToString().Normalize(NormalizationForm.FormC);
             norm = norm.Replace("-", "").Replace(" ", "").Replace("_", "");
             return norm;
+        }
+
+        /// <summary>
+        /// Normaliza una cadena para búsquedas (elimina acentos, guiones, espacios, etc.)
+        /// </summary>
+        public static string NormalizeName(string? input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+
+            var s = input.Trim();
+
+            s = s.Replace('’', '\'')
+                 .Replace('‘', '\'')
+                 .Replace('“', '"')
+                 .Replace('”', '"');
+
+            var formD = s.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder(formD.Length);
+            foreach (var ch in formD)
+            {
+                var uc = CharUnicodeInfo.GetUnicodeCategory(ch);
+                if (uc != UnicodeCategory.NonSpacingMark) sb.Append(ch);
+            }
+            s = sb.ToString().Normalize(NormalizationForm.FormC);
+
+            s = Regex.Replace(s, @"\s+", " ");
+            s = Regex.Replace(s, @"\s*-\s*", "-");
+
+            s = s.ToLowerInvariant();
+
+            return s;
         }
 
         /// <summary>

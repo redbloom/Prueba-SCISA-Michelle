@@ -1,9 +1,26 @@
-/* === BOTONES 3D GLOSSY (arreglo de transparencia + !important colores) === */
+
 :root {
     --shine-light: rgba(255, 255, 255, 0.88);
     --shine-mid: rgba(255, 255, 255, 0.45);
     --shine-dark: rgba(255, 255, 255, 0.08);
     --glow-alpha: rgba(0, 0, 0, 0.22);
+}
+
+
+/* Estado visual de botones deshabilitados (global) */
+button:disabled,
+.btn:disabled,
+.btn.disabled {
+    opacity: .5 !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    filter: saturate(.6);
+    cursor: not-allowed !important;
+}
+
+/* Afinar para tu botón de confirmación */
+#btnConfirmSend:disabled {
+    transform: none !important;
 }
 
 .btn-neo {
@@ -85,3 +102,33 @@
     border-radius: 26px;
     font-size: 1.15rem;
 }
+
+
+.btn-neo:disabled {
+    opacity: .55 !important;
+    filter: grayscale(.15) brightness(.95);
+}
+
+
+/* Botón de cerrar con MDI centrado y blanco */
+.btn-close {
+    background: none !important; /* quita el SVG de fondo de Bootstrap */
+    display: inline-flex; /* centra el <i> */
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    opacity: .9; /* similar al default */
+}
+
+    .btn-close i {
+        color: #fff; /* icono blanco */
+        line-height: 1;
+        font-size: 1.3rem; /* puedes ajustar tamaño */
+    }
+
+    .btn-close:hover {
+        opacity: 1;
+    }
