@@ -38,12 +38,14 @@
             <div class="d-flex flex-column gap-2 ms-md-3">
                 <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Pokemon")">Volver</a>
 
-                <form id="emailForm" method="post" action="@Url.Action("SendOne", "Pokemon", new { id = Model.Id })" class="d-inline">
-                    @Html.AntiForgeryToken()
-                    <button type="button" id="btnEmailOne" class="btn btn-warning">
-                        Enviar correo
-                    </button>
-                </form>
+                <button type="button"
+                        class="btn btn-warning"
+                        data-role="email-one"
+                        data-pokemon-id="@Model.Id"
+                        data-pokemon-name="@Model.Name">
+                    Enviar por correo
+                </button>
+
             </div>
         </div>
     </div>
@@ -86,41 +88,16 @@
         </div>
     </div>
 
-    <div id="alerts" class="mt-3"></div>
 </div>
 
 @section Scripts {
+    <script src="~/js/views/details.js" asp-append-version="true"></script>
+    <script src="~/js/email.modal.js" asp-append-version="true"></script>
     <script>
-        (function(){
-          const btn = document.getElementById('btnEmailOne');
-          const form = document.getElementById('emailForm');
-          const alerts = document.getElementById('alerts');
-
-          function showAlert(type, message){
-            alerts.innerHTML = `
-              <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-              </div>`;
-          }
-
-          btn?.addEventListener('click', async () => {
-            btn.disabled = true;
-            try {
-              const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
-              const res = await fetch(form.action, {
-                method: 'POST',
-                headers: { 'RequestVerificationToken': token }
-              });
-              if(!res.ok) throw new Error();
-              const text = await res.text();
-              showAlert('success', text || 'correo enviado');
-            } catch {
-              showAlert('danger', 'no se pudo enviar el correo');
-            } finally {
-              btn.disabled = false;
-            }
-          });
-        })();
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.PokemonDetails?.init) PokemonDetails.init(); 
+            if (window.PokemonEmail?.init) PokemonEmail.init();  
+        });
     </script>
 }
+

@@ -40,6 +40,9 @@
         </main>
     </div>
 
+    <!-- Toast -->
+    <div id="toast-root" class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index:1080;"></div>
+
     <!-- Footer -->
     <footer class="text-center text-muted small py-3 border-top mt-2">
         © @DateTime.Now.Year - Pokémon App
@@ -49,7 +52,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/ui.toast.js" asp-append-version="true"></script>
 
+    @await Html.PartialAsync("_ConfirmEmailModal")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,40 @@
+﻿<div class="modal fade" id="emailConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card pokemodal border-0">
+            <form id="emailConfirmForm" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" id="emailMode" value="single" />
+                <input type="hidden" id="emailSingleId" />
+
+                <div class="modal-header border-0 mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="pokeball-icon"><i class="mdi mdi-pokeball"></i></span>
+                        <h5 class="modal-title fw-bold text-white">
+                            <span id="emailTitlePrefix">Enviar información</span>
+                            <span id="emailTargetName" class="fw-bold"></span>
+                        </h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p id="emailDescription" class="mb-3 text-muted">
+                    </p>
+
+                    <label class="form-label fw-bold">Correo destino</label>
+                    <input type="email" class="form-control form-control-modern" id="emailTo" name="toEmail" placeholder="tucorreo@dominio.com" />
+                    <div id="emailHelp" class="form-text text-light-blue">
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-outline-light glossy-btn flex-grow-1 me-2" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnConfirmSend" class="btn btn-neo btn-neo-yellow flex-grow-1 ms-2">
+                        Enviar ahora
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

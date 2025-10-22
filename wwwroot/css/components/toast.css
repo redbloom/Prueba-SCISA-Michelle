@@ -1,0 +1,159 @@
+﻿#toast-root {
+    z-index: 1080;
+}
+
+.pokemon-toast {
+    border-radius: 16px !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -4px 8px rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden;
+    position: relative;
+    min-height: 60px;
+}
+
+    /* Efecto de brillo superior */
+    .pokemon-toast::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 60%, transparent 100%);
+        border-radius: 14px 14px 0 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+/* Toast success - Verde Pokémon */
+.pokemon-toast-success {
+    background: linear-gradient(135deg, rgba(67, 233, 123, 0.95) 0%, rgba(56, 249, 215, 0.9) 100%) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+    .pokemon-toast-success .toast-body {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        font-weight: 700 !important;
+        font-size: 0.95rem;
+    }
+
+/* Toast danger - Rojo Pokémon */
+.pokemon-toast-danger {
+    background: linear-gradient(135deg, rgba(239, 28, 28, 0.95) 0%, rgba(175, 15, 15, 0.9) 100%) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+    .pokemon-toast-danger .toast-body {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        font-weight: 700 !important;
+        font-size: 0.95rem;
+    }
+
+/* Toast warning - Amarillo Pokémon */
+.pokemon-toast-warning {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.95) 0%, rgba(255, 235, 59, 0.9) 100%) !important;
+    color: #000 !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+    .pokemon-toast-warning .toast-body {
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        font-weight: 700 !important;
+        font-size: 0.95rem;
+    }
+
+/* Toast info - Azul Pokémon */
+.pokemon-toast-info {
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.95) 0%, rgba(0, 242, 254, 0.9) 100%) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+    .pokemon-toast-info .toast-body {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        font-weight: 700 !important;
+        font-size: 0.95rem;
+    }
+
+/* Iconos para los toasts */
+.pokemon-toast-success .toast-body::before {
+    content: "✓ ";
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+.pokemon-toast-danger .toast-body::before {
+    content: "✗ ";
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+.pokemon-toast-warning .toast-body::before {
+    content: "⚠ ";
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+.pokemon-toast-info .toast-body::before {
+    content: "ⓘ ";
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+/* Efecto de entrada */
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.pokemon-toast {
+    animation: toastSlideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Efecto hover para toasts */
+@media (hover: hover) {
+    .pokemon-toast:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.2) !important;
+        transition: all 0.3s ease;
+    }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    #toast-root {
+        padding: 1rem !important;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .pokemon-toast {
+        min-width: 280px;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+
+        .pokemon-toast .toast-body {
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+        }
+}
+
+/* Posicionamiento mejorado */
+#toast-root.position-fixed {
+    pointer-events: none;
+}
+
+#toast-root .toast {
+    pointer-events: auto;
+}

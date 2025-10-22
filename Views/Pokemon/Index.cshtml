@@ -5,6 +5,9 @@
 }
 
 <div>
+    <!-- Alertas -->
+    <div id="alerts" class="my-3"></div>
+
     <!-- Filtros -->
     <div class="card filters-card mb-4 glass-card">
         <div class="card-header bg-transparent border-bottom-0pb-2">
@@ -63,9 +66,6 @@
         </div>
     </div>
 
-    <!-- Alertas -->
-    <div id="alerts" class="mb-3"></div>
-
     <!-- Grid -->
     <div class="pokemon-grid">
         <div class="card glass-card p-4">
@@ -79,11 +79,13 @@
                 <button type="button" id="btnExport" class="btn btn-success glossy-btn">
                     <i class="mdi mdi-file-excel me-1"></i> Exportar Excel
                 </button>
-                <button type="button" id="btnEmailAll" class="btn btn-warning glossy-btn">
-                    <i class="mdi mdi-email-send me-1"></i> Enviar correo
+
+                <button type="button"
+                        class="btn btn-warning glossy-btn js-email-all">
+                    <i class="mdi mdi-email-send me-1"></i> Enviar listado por correo
                 </button>
             </div>
-
+            
             <div class="card-body">
                 <div id="pokemonList" class="text-center">
                    
@@ -96,10 +98,11 @@
 
 @section Scripts {
     <script src="~/js/index.js" asp-append-version="true"></script>
+    <script src="~/js/email.modal.js" asp-append-version="true"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             PokemonIndex.init();
         });
+        $(function () { window.PokemonEmail.init(); });
     </script>
 }
-

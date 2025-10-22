@@ -191,6 +191,7 @@ window.PokemonIndex = (function () {
     // #region === HELPERS VISUALES ===
     function setLoading(isLoading) {
         if (isLoading) {
+            disableActions(true);
             $list.html(`
             <div style="position:relative;min-height:150px;display:grid;place-items:center;">
                 <div style="position:absolute;inset:0;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);"></div>
@@ -211,19 +212,17 @@ window.PokemonIndex = (function () {
         }
     }
 
-
     function disableActions(disabled) {
         $("#btnExport").prop("disabled", disabled);
         $("#btnEmailAll").prop("disabled", disabled);
     }
 
     function showAlert(type, message) {
-        const id = "al" + Date.now();
-        $alerts.html(`
-      <div id="${id}" class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${escapeHtml(message)}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>`);
+        if (window.UI?.toast) {
+            window.UI.toast(type, message);
+        } else {
+            alert(message);
+        }
     }
     // #endregion
 

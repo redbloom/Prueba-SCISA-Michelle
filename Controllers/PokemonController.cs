@@ -27,8 +27,10 @@ namespace Prueba_SCISA_Michelle.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.EmailAllUrl = Url.Action("SendAll", "Pokemon");
             return View(new PokemonFilterDto());
         }
+
 
         // Listado (partial) para el grid
         [HttpPost]

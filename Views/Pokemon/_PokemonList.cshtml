@@ -48,34 +48,18 @@ else
                         <td class="fw-semibold text-capitalize">@p.Name</td>
                         <td class="text-capitalize">@p.SpeciesName</td>
                         <td class="text-end">
-                            <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap">
-
+                            <div class="btn-group gap-3">
                                 <a class="btn btn-sm glossy-btn btn-neo-green"
                                    href="@Url.Action("Details", "Pokemon", new { id = p.Id })">
                                     Detalles
                                 </a>
 
-                                <!-- Formulario de envío: input con ancho estable + botón amarillo -->
-                                <form method="post"
-                                      action="@Url.Action("SendToEmail", "Pokemon")"
-                                      class="d-flex align-items-center gap-2">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="id" value="@p.Id" />
-
-                                    <input type="email"
-                                           name="toEmail"
-                                           class="form-control form-control-sm"
-                                           placeholder="correo@dominio.com"
-                                           autocomplete="email"
-                                           required
-                                           style="width: 240px; max-width: 100%;" />
-
-                                    <button type="submit"
-                                            class="btn btn-sm glossy-btn btn-neo-yellow">
-                                        Enviar correo
-                                    </button>
-                                </form>
-
+                                <button type="button"
+                                        class="btn btn-sm glossy-btn btn-neo-yellow js-email-one"
+                                        data-pokemon-id="@p.Id"
+                                        data-pokemon-name="@p.Name">
+                                    Enviar por correo
+                                </button>
                             </div>
                         </td>
                     </tr>
