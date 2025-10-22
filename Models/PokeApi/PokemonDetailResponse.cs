@@ -2,7 +2,6 @@
 
 namespace Prueba_SCISA_Michelle.Models.PokeApi
 {
-    // GET https://pokeapi.co/api/v2/pokemon/{id|name}
     public sealed class PokemonDetailResponse
     {
         [JsonPropertyName("id")]

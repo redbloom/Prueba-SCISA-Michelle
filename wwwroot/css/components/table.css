@@ -351,3 +351,21 @@ nav[aria-label="paginacion"] {
     max-width: 100%;
     white-space: normal;
 }
+
+.table td:empty::after {
+    content: "—";
+    opacity: .8;
+}
+
+.table td a:empty::after {
+    content: "—";
+    opacity: .8;
+}
+
+.table td {
+    white-space: normal;
+}
+
+    .table td:empty {
+        white-space: normal;
+    }
