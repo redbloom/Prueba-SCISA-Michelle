@@ -16,6 +16,7 @@
 @import "components/buttons.css";
 @import "components/table.css";
 @import "components/modal.css";
+@import "components/toast.css";
 
 /* Estilos específicos de página */
 @import "pages/pokemon.css";

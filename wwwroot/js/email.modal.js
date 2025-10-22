@@ -13,7 +13,7 @@ window.PokemonEmail = (function () {
     function init() {
         $modal = $("#emailConfirmModal");
         $form = $("#emailConfirmForm");
-        $filters = $("#filtersForm"); // por si luego ocupas filtros
+        $filters = $("#filtersForm");
         $titlePrefix = $("#emailTitlePrefix");
         $targetName = $("#emailTargetName");
         $desc = $("#emailDescription");
@@ -48,7 +48,6 @@ window.PokemonEmail = (function () {
             $titlePrefix.text("Enviar información de");
             $targetName.text(cap(meta.name || ""));
 
-            // Texto mejorado con énfasis en el Pokémon
             const pokemonName = cap(meta.name || "");
             $desc.html(`Se enviará la ficha completa del Pokémon <span class="pokemon-highlight">${pokemonName}</span> incluyendo todos sus datos técnicos y estadísticas.`);
             $help.text("Incluye ID, nombre, especie, tipos, altura, peso, experiencia base y habilidades.");
