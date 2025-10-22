@@ -5,5 +5,6 @@
         public string FromName { get; set; } = "";
         public string FromEmail { get; set; } = "";
         public bool SandboxMode { get; set; } = false;
+        public string ApiKey { get; set; } = "";
     }
 }
