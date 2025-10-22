@@ -6,8 +6,8 @@ window.PokemonEmail = (function () {
 
     // Ajusta aquí tu endpoint real si no lo inyectas por data-attrs
     const urls = {
-        sendOne: "/Pokemon/SendToEmail" // Controller.Action actual
-        // sendAll quedará pendiente a propósito
+        sendOne: "/Pokemon/SendToEmail",
+        sendAll: null
     };
 
     function init() {
@@ -22,6 +22,9 @@ window.PokemonEmail = (function () {
         $mode = $("#emailMode");
         $singleId = $("#emailSingleId");
         $btnConfirm = $("#btnConfirmSend");
+
+        urls.sendAll = $filters.data("email-all-url") || "/Pokemon/SendAllToEmail";
+
 
         modal = bootstrap.Modal.getOrCreateInstance($modal[0]);
 
@@ -78,7 +81,7 @@ window.PokemonEmail = (function () {
             await sendOne($singleId.val(), to);
         } else {
             // Listado: pendiente en backend, solo avisamos al usuario
-            toastInfo("Esta acción está lista en la vista, pero el envío del listado aún está pendiente en el backend.");
+            await sendAll(to);
             modal.hide();
         }
     }
@@ -106,6 +109,31 @@ window.PokemonEmail = (function () {
                 $btnConfirm.prop("disabled", false).text("Enviar ahora");
             });
     }
+
+    // === Envío Listado ===
+    async function sendAll(toEmail) {
+        const token = $form.find('input[name="__RequestVerificationToken"]').val();
+        const fd = new FormData($filters[0]); 
+        fd.append("toEmail", toEmail);
+
+        $btnConfirm.prop("disabled", true).text("Enviando...");
+        try {
+            const resp = await fetch(urls.sendAll, {
+                method: "POST",
+                headers: { "RequestVerificationToken": token },
+                body: fd
+            });
+            if (!resp.ok) throw new Error(await safeText(resp));
+            toastOk((await safeText(resp)) || "Correo enviado con la lista actual.");
+            modal.hide();
+        } catch (err) {
+            toastErr(err.message || "No se pudo enviar el listado.");
+        } finally {
+            $btnConfirm.prop("disabled", false).text("Continuar");
+        }
+    }
+
+    async function safeText(r) { try { return await r.text(); } catch { return ""; } }
 
     // Helpers UI
     function cap(s) { return (s || "").toString().toLowerCase().replace(/^./, m => m.toUpperCase()); }

@@ -177,5 +177,21 @@ namespace Prueba_SCISA_Michelle.Controllers
             TempData["Toast"] = $"Correo enviado a {toEmail}";
             return RedirectToAction(nameof(Index));
         }
-    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendAllToEmail(string toEmail, PokemonFilterDto filter, CancellationToken ct)
+        {
+            if (string.IsNullOrWhiteSpace(toEmail))
+                return BadRequest("El correo destino es obligatorio.");
+
+            var page = await _pokemon.SearchAsync(filter, ct);
+            if (page.Items.Count == 0)
+                return Ok("No hay Pokémon en la lista actual para enviar.");
+
+            await _email.SendBulkToAsync(toEmail, page.Items.Select(i => i.Id), ct);
+            return Ok($"Correos enviados a {toEmail} con {page.Items.Count} registros.");
+        }
+        }
   }
+
+

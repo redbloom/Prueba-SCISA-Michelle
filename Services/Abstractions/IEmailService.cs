@@ -13,5 +13,7 @@ namespace Prueba_SCISA_Michelle.Services.Abstractions
             string htmlBody,
             IDictionary<string, (byte[] bytes, string mime, string fileName)> inlineImages,
             CancellationToken ct = default);
+        Task SendBulkToAsync(string toEmail, IEnumerable<int> pokemonIds, CancellationToken ct = default);
+
     }
 }

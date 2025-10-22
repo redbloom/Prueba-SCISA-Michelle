@@ -19,7 +19,7 @@
             <form id="filtersForm" method="post" class="row g-3 align-items-center"
                   data-list-url="@Url.Action("List", "Pokemon")"
                   data-export-url="@Url.Action("Export", "Pokemon")"
-                  data-email-all-url="@Url.Action("SendAll", "Pokemon")"
+                  data-email-all-url="@Url.Action("SendAllToEmail", "Pokemon")"
                   data-species-url="@Url.Action("Species", "Pokemon")">
                 @Html.AntiForgeryToken()
 
