@@ -119,14 +119,18 @@ namespace Prueba_SCISA_Michelle.Controllers.Api
         }
 
         // POST /api/email/25
-        [HttpPost("email/{id:int}")]
+        [HttpPost("email/send")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SendOne([FromRoute] int id, CancellationToken ct = default)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SendCustom([FromBody] EmailSendRequestDto req, CancellationToken ct = default)
         {
+            if (!ModelState.IsValid)
+                return ValidationProblem(ModelState);
+
             try
             {
-                await _email.SendOneAsync(id, ct);
-                return Ok(new { message = $"Correo enviado al Pokémon con ID {id}" });
+                await _email.SendCustomAsync(req.ToEmail, req.Subject, req.HtmlBody, ct);
+                return Ok(new { message = "Correo enviado correctamente", to = req.ToEmail });
             }
             catch (OperationCanceledException)
             {
@@ -134,9 +138,10 @@ namespace Prueba_SCISA_Michelle.Controllers.Api
             }
             catch (Exception ex)
             {
-                return Problem(title: "Error al enviar el correo individual", detail: ex.Message, statusCode: 500);
+                return Problem(title: "Error al enviar el correo", detail: ex.Message, statusCode: 500);
             }
         }
+
 
         // POST /api/email/bulk   (body: PokemonFilterDto)
         [HttpPost("email/bulk")]

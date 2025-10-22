@@ -1,5 +1,6 @@
 using Prueba_SCISA_Michelle.Services;
 using Prueba_SCISA_Michelle.Services.Abstractions;
+using Prueba_SCISA_Michelle.Models.Options; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +16,14 @@ builder.Services.AddMemoryCache();
 // MVC + API
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddControllers(); // <- para rutas por atributos (ApiController)
+builder.Services.AddControllers();
+
+
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection("Email")); 
 
 // Servicios
 builder.Services.AddScoped<IPokemonService, PokemonService>();
-builder.Services.AddScoped<IExcelExportService, ExcelExportService>(); // CSV simple
+builder.Services.AddScoped<IExcelExportService, ExcelExportService>(); 
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();

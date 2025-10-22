@@ -15,7 +15,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5004",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SENDGRID_API_KEY": "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"
       }
     },
     "https": {
@@ -24,14 +25,16 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7053;http://localhost:5004",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SENDGRID_API_KEY": "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"
       }
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SENDGRID_API_KEY": "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"
       }
     }
   }
