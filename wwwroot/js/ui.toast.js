@@ -1,4 +1,10 @@
-﻿(function () {
+﻿// =============================================================================
+//  Utilidades UI: Toasts Pokémon
+// =============================================================================
+
+(function () {
+
+    // #region === VARIABLES Y CONSTANTES ===
     const ROOT_ID = "toast-root";
     const TYPE_TO_CLASS = {
         success: "pokemon-toast-success",
@@ -6,7 +12,10 @@
         warning: "pokemon-toast-warning",
         info: "pokemon-toast-info"
     };
+    // #endregion
 
+
+    // #region === CORE / DOM ===
     function ensureRoot() {
         let root = document.getElementById(ROOT_ID);
         if (!root) {
@@ -18,7 +27,10 @@
         }
         return root;
     }
+    // #endregion
 
+
+    // #region === TOAST API ===
     function toast(type, message, opts = {}) {
         const root = ensureRoot();
         const toastClass = TYPE_TO_CLASS[type] || TYPE_TO_CLASS.info;
@@ -41,7 +53,10 @@
 
         el.addEventListener("hidden.bs.toast", () => el.remove());
     }
+    // #endregion
 
+
+    // #region === HELPERS ===
     function escapeHtml(s) {
         return (s || "")
             .replace(/&/g, "&amp;")
@@ -50,7 +65,10 @@
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
+    // #endregion
 
+
+    // #region === EXPORTS ===
     // Helpers rápidos
     window.UI = window.UI || {};
     window.UI.toast = toast;
@@ -58,4 +76,6 @@
     window.UI.toastError = (msg, opts) => toast('danger', msg, opts);
     window.UI.toastWarning = (msg, opts) => toast('warning', msg, opts);
     window.UI.toastInfo = (msg, opts) => toast('info', msg, opts);
+    // #endregion
+
 })();

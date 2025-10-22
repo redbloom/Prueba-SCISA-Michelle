@@ -70,7 +70,6 @@ namespace Prueba_SCISA_Michelle.Controllers.Api
         }
 
         // GET /api/species
-        // Nota: devuelve (id, name) tal como lo trae el catálogo de species de la API.
         [HttpGet("species")]
         [ProducesResponseType(typeof(IEnumerable<object>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<object>>> GetSpecies(CancellationToken ct = default)

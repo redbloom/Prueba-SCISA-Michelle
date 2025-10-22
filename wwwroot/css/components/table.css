@@ -1,14 +1,32 @@
 ﻿/* ===== ESTILOS PARA TABLA POKÉMON ===== */
 
-/* Contenedor de tabla responsive */
 .table-responsive {
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
+    overflow-x: auto; /* permite scroll horizontal */
+    overflow-y: hidden; /* evita scroll vertical extra */
     margin-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch; /* suaviza en móviles */
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+    scrollbar-width: thin;
 }
+
+    /* Scrollbar más elegante para navegadores WebKit */
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+    }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
 
 /* Tabla principal */
 .table {
@@ -18,7 +36,7 @@
     border-spacing: 0;
 }
 
-/* Header de tabla estilo Pokémon */
+/* Header de tabla */
 .table-red thead {
     background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 100%);
     border: none;
@@ -301,4 +319,53 @@ nav[aria-label="paginacion"] {
 
     .table tbody tr:nth-child(odd) {
         animation-delay: 0.05s;
+    }
+
+@media (max-width: 768px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+        .btn-group .btn {
+            width: 100%;
+            border-radius: 8px !important;
+            text-align: center;
+        }
+}
+
+@media (max-width: 480px) {
+    .btn-group .btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.6rem;
+    }
+}
+
+.table td a {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+}
+
+.table td:empty::after {
+    content: "—";
+    opacity: .8;
+}
+
+.table td a:empty::after {
+    content: "—";
+    opacity: .8;
+}
+
+.table td {
+    white-space: normal;
+}
+
+    .table td:empty {
+        white-space: normal;
     }

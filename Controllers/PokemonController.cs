@@ -136,28 +136,28 @@ namespace Prueba_SCISA_Michelle.Controllers
             }
 
             var html = $@"
-<div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
-    <h2 style=""margin:0 0 8px"">¡Hola!</h2>
-    <p style=""margin:0 0 16px"">Te comparto información de <strong style=""text-transform:capitalize"">{name}</strong>.</p>
+                <div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
+                    <h2 style=""margin:0 0 8px"">¡Hola!</h2>
+                    <p style=""margin:0 0 16px"">Te comparto información de <strong style=""text-transform:capitalize"">{name}</strong>.</p>
 
-    {(spriteBytes is null ? $"<p style='margin:0 0 12px;font-style:italic;color:#888'>Imagen no disponible</p>" : "")}
+                    {(spriteBytes is null ? $"<p style='margin:0 0 12px;font-style:italic;color:#888'>Imagen no disponible</p>" : "")}
 
-    <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0""
-           style=""border-collapse:collapse;min-width:320px;background:#f6f8ff;border-radius:12px;overflow:hidden;margin-top:12px"">
-        <tbody>
-            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;width:40%;color:#6b7280"">ID</td><td style=""padding:12px 16px"">{d.Id}</td></tr>
-            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Nombre</td><td style=""padding:12px 16px;text-transform:capitalize"">{d.Name}</td></tr>
-            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Especie</td><td style=""padding:12px 16px;text-transform:capitalize"">{d.SpeciesName}</td></tr>
-            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Altura</td><td style=""padding:12px 16px"">{d.HeightMeters:N1} m</td></tr>
-            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Peso</td><td style=""padding:12px 16px"">{d.WeightKg:N1} kg</td></tr>
-            <tr><td style=""padding:12px 16px;color:#6b7280"">Experiencia base</td><td style=""padding:12px 16px"">{d.BaseExperience}</td></tr>
-        </tbody>
-    </table>
+                    <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0""
+                           style=""border-collapse:collapse;min-width:320px;background:#f6f8ff;border-radius:12px;overflow:hidden;margin-top:12px"">
+                        <tbody>
+                            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;width:40%;color:#6b7280"">ID</td><td style=""padding:12px 16px"">{d.Id}</td></tr>
+                            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Nombre</td><td style=""padding:12px 16px;text-transform:capitalize"">{d.Name}</td></tr>
+                            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Especie</td><td style=""padding:12px 16px;text-transform:capitalize"">{d.SpeciesName}</td></tr>
+                            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Altura</td><td style=""padding:12px 16px"">{d.HeightMeters:N1} m</td></tr>
+                            <tr><td style=""padding:12px 16px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Peso</td><td style=""padding:12px 16px"">{d.WeightKg:N1} kg</td></tr>
+                            <tr><td style=""padding:12px 16px;color:#6b7280"">Experiencia base</td><td style=""padding:12px 16px"">{d.BaseExperience}</td></tr>
+                        </tbody>
+                    </table>
 
-    <p style=""margin:16px 0 0;font-size:12px;color:#6b7280"">
-        Sprite fuente: <a href=""{d.ImageUrl}"">{d.ImageUrl}</a>
-    </p>
-</div>";
+                    <p style=""margin:16px 0 0;font-size:12px;color:#6b7280"">
+                        Sprite fuente: <a href=""{d.ImageUrl}"">{d.ImageUrl}</a>
+                    </p>
+                </div>";
 
 
             if (spriteBytes is not null)

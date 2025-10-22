@@ -1,7 +1,6 @@
-// wwwroot/js/views/pokemon.index.js
 // =============================================================================
 //  Módulo principal: PokemonIndex
-//  Controla filtros, lista, exportación y envío de correos
+//  Controla filtros, lista y exportación
 // =============================================================================
 
 window.PokemonIndex = (function () {
@@ -10,6 +9,7 @@ window.PokemonIndex = (function () {
     let $form, $list, $alerts;
     let urls = {};
     let token = "";
+    let isBusy = false;
     // #endregion
 
 
@@ -21,7 +21,6 @@ window.PokemonIndex = (function () {
 
         urls.list = $form.data("list-url");
         urls.export = $form.data("export-url");
-        urls.emailAll = $form.data("email-all-url");
         urls.species = $form.data("species-url");
         token = $form.find('input[name="__RequestVerificationToken"]').val();
 
@@ -36,7 +35,6 @@ window.PokemonIndex = (function () {
         // Buscar
         $form.on("submit", function (e) {
             e.preventDefault();
-            // Siempre arranca desde página 1 al buscar
             $form.find('input[name="Page"]').val(1);
             loadList();
         });
@@ -51,6 +49,7 @@ window.PokemonIndex = (function () {
         // Paginación (delegada desde el contenedor)
         $list.on("click", ".js-page", function (e) {
             e.preventDefault();
+            if (isBusy || $(this).hasClass("disabled")) return;
             const page = $(this).data("page");
             if (!page) return;
             $form.find('input[name="Page"]').val(page);
@@ -59,30 +58,27 @@ window.PokemonIndex = (function () {
 
         // Exportar
         $("#btnExport").on("click", exportExcel);
-
-        // Enviar correos a la lista actual
-        $("#btnEmailAll").on("click", sendAllEmails);
-
-        // Enviar correo a uno (delegado, botones que vienen en el partial)
-        $list.on("click", ".js-email-one", sendOneEmail);
     }
     // #endregion
 
 
     // #region === CARGA DE CATÁLOGO (ESPECIES) ===
     async function loadSpecies() {
+        if (isBusy) return;
+        setLoading(true);
+        disableActions(true);
         try {
-            setLoading(true);
-            const url = urls.species; 
-            const res = await fetch(url, { method: "GET" });
+            const res = await fetch(urls.species, { method: "GET" });
             if (!res.ok) throw new Error("No se pudo cargar Species");
             const data = await res.json();
             const $sel = $("#speciesSelect");
             $sel.find("option:not([value=''])").remove();
             data.forEach(x => $sel.append(new Option(cap(x.name), x.id)));
-        } catch (err) {
+        } catch {
             showAlert("warning", "No se pudo cargar el catálogo de especies.");
-            setLoading(false)
+        } finally {
+            setLoading(false);
+            disableActions(false);
         }
     }
     // #endregion
@@ -90,30 +86,36 @@ window.PokemonIndex = (function () {
 
     // #region === LISTA PRINCIPAL ===
     async function loadList() {
+        if (isBusy) return;
+        isBusy = true;
+
+        // Serializa ANTES de deshabilitar para no perder filtros
+        const formData = new FormData($form[0]);
+
         disableActions(true);
+        setLoading(true);
 
         try {
-            const formData = new FormData($form[0]);
             const res = await fetch(urls.list, {
                 method: "POST",
                 headers: { "RequestVerificationToken": token },
                 body: formData
             });
 
-            // 499 = cancelado por cliente (convención), lo ignoramos
             if (res.status === 499) return;
             if (!res.ok) throw new Error("Error al cargar la lista");
 
             const html = await res.text();
             $list.html(html);
 
-            // Habilitar acciones si hay filas
             const hasRows = $list.find("tbody tr").length > 0;
-            disableActions(!hasRows);
-        } catch (err) {
+            disableActions(!hasRows ? true : false);
+        } catch {
             showAlert("danger", "Ocurrió un error al cargar la lista.");
         } finally {
             setLoading(false);
+            isBusy = false;
+            disableActions(false);
         }
     }
     // #endregion
@@ -121,6 +123,10 @@ window.PokemonIndex = (function () {
 
     // #region === EXPORTACIÓN (EXCEL/CSV) ===
     async function exportExcel() {
+        if (isBusy) return;
+        isBusy = true;
+        disableActions(true);
+
         try {
             const formData = new FormData($form[0]);
             const res = await fetch(urls.export, {
@@ -134,7 +140,6 @@ window.PokemonIndex = (function () {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            // Intenta deducir el nombre; por defecto usamos pokemon.xlsx
             a.download = getFileNameFromResponse(res) || "pokemon.xlsx";
             document.body.appendChild(a);
             a.click();
@@ -142,47 +147,9 @@ window.PokemonIndex = (function () {
             window.URL.revokeObjectURL(url);
         } catch {
             showAlert("danger", "No se pudo exportar el Excel.");
-        }
-    }
-    // #endregion
-
-
-    // #region === ENVÍO DE CORREOS ===
-    async function sendAllEmails() {
-        try {
-            const formData = objectFromForm($form[0]); // Plain object del filtro
-            const res = await fetch(urls.emailAll, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "RequestVerificationToken": token
-                },
-                body: JSON.stringify(formData)
-            });
-            if (!res.ok) throw new Error();
-
-            const text = await res.text(); // Ok("...") devuelve texto plano
-            showAlert("success", text || "Correos enviados.");
-        } catch {
-            showAlert("danger", "No se pudieron enviar los correos.");
-        }
-    }
-
-    async function sendOneEmail(e) {
-        e.preventDefault();
-        const url = e.currentTarget.getAttribute("data-email-url");
-        if (!url) return;
-
-        try {
-            const res = await fetch(url, {
-                method: "POST",
-                headers: { "RequestVerificationToken": token }
-            });
-            if (!res.ok) throw new Error();
-            const text = await res.text();
-            showAlert("success", text || "Correo enviado.");
-        } catch {
-            showAlert("danger", "No se pudo enviar el correo.");
+        } finally {
+            isBusy = false;
+            disableActions(false);
         }
     }
     // #endregion
@@ -191,7 +158,6 @@ window.PokemonIndex = (function () {
     // #region === HELPERS VISUALES ===
     function setLoading(isLoading) {
         if (isLoading) {
-            disableActions(true);
             $list.html(`
             <div style="position:relative;min-height:150px;display:grid;place-items:center;">
                 <div style="position:absolute;inset:0;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);"></div>
@@ -215,6 +181,9 @@ window.PokemonIndex = (function () {
     function disableActions(disabled) {
         $("#btnExport").prop("disabled", disabled);
         $("#btnEmailAll").prop("disabled", disabled);
+        $("#btnClear").prop("disabled", disabled);
+        $("#btnSearch").prop("disabled", disabled);
+        $list.find(".js-page").toggleClass("disabled", disabled);
     }
 
     function showAlert(type, message) {
@@ -232,7 +201,6 @@ window.PokemonIndex = (function () {
         const fd = new FormData(form);
         const obj = {};
         fd.forEach((v, k) => {
-            // Convierte números cuando aplica
             if (k === "Page" || k === "PageSize" || k === "SpeciesId") {
                 const n = (v ?? "").toString().trim();
                 obj[k] = n === "" ? null : Number(n);

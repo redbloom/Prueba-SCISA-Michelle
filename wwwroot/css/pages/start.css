@@ -46,6 +46,7 @@
 
 /* Botones y acciones */
 .start-actions {
+    width: 100%;
     display: flex;
     gap: 16px;
     align-items: center;
