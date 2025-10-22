@@ -1,6 +1,6 @@
-using Prueba_SCISA_Michelle.Services;
+﻿using Prueba_SCISA_Michelle.Services;
 using Prueba_SCISA_Michelle.Services.Abstractions;
-using Prueba_SCISA_Michelle.Models.Options; 
+using Prueba_SCISA_Michelle.Models.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +16,17 @@ builder.Services.AddMemoryCache();
 // MVC + API
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddControllers();
 
-
-builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection("Email")); 
+// Email config
+builder.Services
+    .AddOptions<EmailOptions>()
+    .Bind(builder.Configuration.GetSection("Email"))
+    .Validate(o => !string.IsNullOrWhiteSpace(o.ApiKey), "Email.ApiKey es requerido.")
+    .ValidateOnStart();
 
 // Servicios
 builder.Services.AddScoped<IPokemonService, PokemonService>();
-builder.Services.AddScoped<IExcelExportService, ExcelExportService>(); 
+builder.Services.AddScoped<IExcelExportService, ExcelExportService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
@@ -46,5 +49,6 @@ app.MapControllerRoute(
 
 // API (atributos)
 app.MapControllers();
+
 
 app.Run();

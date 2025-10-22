@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 using Prueba_SCISA_Michelle.Models.Dtos;
 using Prueba_SCISA_Michelle.Models.Options;
 using Prueba_SCISA_Michelle.Services.Abstractions;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Prueba_SCISA_Michelle.Services
 {
@@ -20,15 +20,16 @@ namespace Prueba_SCISA_Michelle.Services
         public EmailService(
             ILogger<EmailService> logger,
             IOptions<EmailOptions> options,
-            IConfiguration config,
             IPokemonService pokemon)
         {
             _logger = logger;
             _opts = options.Value;
             _pokemon = pokemon;
-            _apiKey = config["SENDGRID_API_KEY"] ?? Environment.GetEnvironmentVariable("SENDGRID_API_KEY") ?? "";
+
+            _apiKey = Encoding.UTF8.GetString(Convert.FromBase64String(_opts.ApiKey));
+
             if (string.IsNullOrWhiteSpace(_apiKey))
-                throw new InvalidOperationException("SENDGRID_API_KEY no está configurada en el entorno.");
+                throw new InvalidOperationException("Email.ApiKey no está configurado en appsettings.json.");
         }
 
         public async Task SendCustomAsync(string toEmail, string subject, string htmlBody, CancellationToken ct = default)
@@ -79,7 +80,6 @@ namespace Prueba_SCISA_Michelle.Services
             }
         }
 
-
         public async Task SendOneAsync(int pokemonId, CancellationToken ct = default)
         {
             var d = await _pokemon.GetDetailsAsync(pokemonId, ct);
@@ -93,17 +93,17 @@ namespace Prueba_SCISA_Michelle.Services
             var subject = $"Ficha de {d.Name}";
 
             var html = $@"
-<div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
-  <h2 style=""margin:0 0 8px"">Información de <span style=""text-transform:capitalize"">{d.Name}</span></h2>
-  <p style=""margin:0 0 12px""><img src=""{d.ImageUrl}"" alt=""sprite"" width=""96"" height=""96"" style=""image-rendering:pixelated;border-radius:8px""/></p>
-  <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""border-collapse:collapse;background:#f6f8ff;border-radius:12px;overflow:hidden"">
-    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">ID</td><td style=""padding:8px 12px"">{d.Id}</td></tr>
-    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Nombre</td><td style=""padding:8px 12px;text-transform:capitalize"">{d.Name}</td></tr>
-    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Especie</td><td style=""padding:8px 12px"">{d.SpeciesName}</td></tr>
-    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Altura</td><td style=""padding:8px 12px"">{d.HeightMeters:N1} m</td></tr>
-    <tr><td style=""padding:8px 12px;color:#6b7280"">Peso</td><td style=""padding:8px 12px"">{d.WeightKg:N1} kg</td></tr>
-  </table>
-</div>";
+                <div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
+                  <h2 style=""margin:0 0 8px"">Información de <span style=""text-transform:capitalize"">{d.Name}</span></h2>
+                  <p style=""margin:0 0 12px""><img src=""{d.ImageUrl}"" alt=""sprite"" width=""96"" height=""96"" style=""image-rendering:pixelated;border-radius:8px""/></p>
+                  <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""border-collapse:collapse;background:#f6f8ff;border-radius:12px;overflow:hidden"">
+                    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">ID</td><td style=""padding:8px 12px"">{d.Id}</td></tr>
+                    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Nombre</td><td style=""padding:8px 12px;text-transform:capitalize"">{d.Name}</td></tr>
+                    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Especie</td><td style=""padding:8px 12px"">{d.SpeciesName}</td></tr>
+                    <tr><td style=""padding:8px 12px;border-bottom:1px solid #e6e8f5;color:#6b7280"">Altura</td><td style=""padding:8px 12px"">{d.HeightMeters:N1} m</td></tr>
+                    <tr><td style=""padding:8px 12px;color:#6b7280"">Peso</td><td style=""padding:8px 12px"">{d.WeightKg:N1} kg</td></tr>
+                  </table>
+                </div>";
 
             await SendCustomAsync(to, subject, html, ct);
         }
@@ -151,28 +151,28 @@ namespace Prueba_SCISA_Michelle.Services
             details = details.OrderBy(d => d.Id).ToList();
 
             var rows = string.Join("", details.Select(d => $@"
-<tr>
-  <td style=""padding:8px 12px;border-bottom:1px solid #eee"">{d.Id}</td>
-  <td style=""padding:8px 12px;border-bottom:1px solid #eee;text-transform:capitalize"">{d.Name}</td>
-  <td style=""padding:8px 12px;border-bottom:1px solid #eee"">{d.SpeciesName}</td>
-  <td style=""padding:8px 12px;border-bottom:1px solid #eee""><a href=""{d.ImageUrl}"">{d.ImageUrl}</a></td>
-</tr>"));
+                <tr>
+                  <td style=""padding:8px 12px;border-bottom:1px solid #eee"">{d.Id}</td>
+                  <td style=""padding:8px 12px;border-bottom:1px solid #eee;text-transform:capitalize"">{d.Name}</td>
+                  <td style=""padding:8px 12px;border-bottom:1px solid #eee"">{d.SpeciesName}</td>
+                  <td style=""padding:8px 12px;border-bottom:1px solid #eee""><a href=""{d.ImageUrl}"">{d.ImageUrl}</a></td>
+                </tr>"));
 
-            var html = $@"
-<div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
-  <h2 style=""margin:0 0 10px"">Lista actual de Pokémon ({details.Count})</h2>
-  <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""border-collapse:collapse;width:100%;background:#ffffff;border:1px solid #e6e8f5;border-radius:12px;overflow:hidden"">
-    <thead>
-      <tr style=""background:#f6f8ff"">
-        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">ID</th>
-        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Nombre</th>
-        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Especie</th>
-        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Imagen</th>
-      </tr>
-    </thead>
-    <tbody>{rows}</tbody>
-  </table>
-</div>";
+                            var html = $@"
+                <div style=""font-family:Segoe UI,Arial,sans-serif;color:#0e1222"">
+                  <h2 style=""margin:0 0 10px"">Lista actual de Pokémon ({details.Count})</h2>
+                  <table role=""presentation"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""border-collapse:collapse;width:100%;background:#ffffff;border:1px solid #e6e8f5;border-radius:12px;overflow:hidden"">
+                    <thead>
+                      <tr style=""background:#f6f8ff"">
+                        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">ID</th>
+                        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Nombre</th>
+                        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Especie</th>
+                        <th align=""left"" style=""padding:10px 12px;border-bottom:1px solid #e6e8f5"">Imagen</th>
+                      </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                  </table>
+                </div>";
 
             var subject = $"Pokémon – lista actual ({details.Count})";
             await SendCustomAsync(toEmail, subject, html, ct);
